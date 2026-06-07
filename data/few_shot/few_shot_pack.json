@@ -1,0 +1,192 @@
+{
+  "dataset_name": "few_shot_pack",
+  "version": "public_v1",
+  "created_at": "2026-06-07",
+  "purpose": "Sanitized compact few-shot examples for Arabic monthly statements and daily invoices.",
+  "tasks": {
+    "monthly_statement_rows": {
+      "instruction": "Extract a monthly statement page into JSON. Keep Arabic note text. Return row-level date, reference_number, note, debit, credit, balance, plus footer_summary when visible.",
+      "output_schema": {
+        "document_type": "monthly_statement",
+        "header": {
+          "customer_name": "string",
+          "period_from": "YYYY-MM-DD or null",
+          "period_to": "YYYY-MM-DD or null"
+        },
+        "rows": [
+          {
+            "date": "YYYY-MM-DD",
+            "reference_number": "string",
+            "note": "Arabic string",
+            "debit": "string number",
+            "credit": "string number",
+            "balance": "string number"
+          }
+        ],
+        "footer_summary": {
+          "current_balance": "string number or null"
+        }
+      },
+      "examples": [
+        {
+          "example_id": "generic_monthly_statement",
+          "training_roles": [
+            "generic_approved"
+          ],
+          "header_signals": [
+            "كشف حساب",
+            "من",
+            "الى",
+            "التاريخ",
+            "الملاحظات",
+            "الرصيد الحالي"
+          ],
+          "output_sample": {
+            "document_type": "monthly_statement",
+            "header": {
+              "customer_name": "عميل تجريبي",
+              "period_from": "2025-12-01",
+              "period_to": "2025-12-31"
+            },
+            "rows": [
+              {
+                "date": "2025-12-15",
+                "reference_number": "258",
+                "note": "مبيعات",
+                "debit": "1413.89",
+                "credit": "0.00",
+                "balance": "50293.83"
+              },
+              {
+                "date": "2025-12-21",
+                "reference_number": "272",
+                "note": "استلام نقديه",
+                "debit": "0.00",
+                "credit": "45000.00",
+                "balance": "42285.25"
+              },
+              {
+                "date": "2025-12-23",
+                "reference_number": "865",
+                "note": "مبيعات",
+                "debit": "898.20",
+                "credit": "0.00",
+                "balance": "44695.24"
+              }
+            ],
+            "footer_summary": {
+              "current_balance": "44695.24"
+            }
+          }
+        }
+      ]
+    },
+    "monthly_statement_summary_only": {
+      "instruction": "Extract a summary-only monthly statement page into JSON. Do not hallucinate movement rows if the page only contains totals.",
+      "output_schema": {
+        "document_type": "monthly_statement",
+        "header": {
+          "customer_name": "string",
+          "period_from": "YYYY-MM-DD or null",
+          "period_to": "YYYY-MM-DD or null"
+        },
+        "rows": [],
+        "footer_summary": "object with visible totals only"
+      },
+      "examples": [
+        {
+          "example_id": "generic_monthly_summary_only",
+          "training_roles": [
+            "summary_only_approved",
+            "generic_approved"
+          ],
+          "header_signals": [
+            "مطالبة حساب عميل",
+            "عدد الفواتير",
+            "إجمالي عام"
+          ],
+          "output_sample": {
+            "document_type": "monthly_statement",
+            "header": {
+              "customer_name": "عميل تجريبي",
+              "period_from": "2025-08-17",
+              "period_to": "2025-10-16"
+            },
+            "rows": [],
+            "footer_summary": {
+              "invoice_count": "50",
+              "notice_count": "2",
+              "invoice_total_with_tax": "43223.425",
+              "notice_total_with_tax": "-676.52",
+              "grand_total_with_tax": "42546.905",
+              "cash_discount_value": "820.239"
+            }
+          }
+        }
+      ]
+    },
+    "daily_invoice_rows": {
+      "instruction": "Extract a daily invoice page into JSON. Keep Arabic medicine names exactly as seen. Return item_name_ar, quantity, price, discount, total, plus visible invoice header and footer totals.",
+      "output_schema": {
+        "document_type": "daily_invoice",
+        "header": {
+          "customer_name": "string",
+          "invoice_number": "string or null",
+          "invoice_date": "YYYY-MM-DD or null"
+        },
+        "rows": [
+          {
+            "item_name_ar": "Arabic string",
+            "quantity": "string number",
+            "price": "string number",
+            "discount": "string number",
+            "total": "string number"
+          }
+        ],
+        "footer_summary": {
+          "current_balance": "string number or null"
+        }
+      },
+      "examples": [
+        {
+          "example_id": "generic_daily_invoice",
+          "training_roles": [
+            "generic_approved"
+          ],
+          "header_signals": [
+            "رقم الفاتورة",
+            "الحساب",
+            "عدد الأصناف"
+          ],
+          "output_sample": {
+            "document_type": "daily_invoice",
+            "header": {
+              "customer_name": "عميل تجريبي",
+              "invoice_number": "510020927",
+              "invoice_date": null
+            },
+            "rows": [
+              {
+                "item_name_ar": "دواء تجريبي 10 مل قطرة",
+                "quantity": "2",
+                "price": "63",
+                "discount": "20",
+                "total": "100.800"
+              },
+              {
+                "item_name_ar": "جل تجريبي 50 جرام",
+                "quantity": "5",
+                "price": "65",
+                "discount": "20",
+                "total": "191.750"
+              }
+            ],
+            "footer_summary": {
+              "current_balance": "102487.95"
+            }
+          }
+        }
+      ]
+    }
+  }
+}
