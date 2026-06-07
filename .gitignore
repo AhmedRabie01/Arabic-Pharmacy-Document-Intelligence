@@ -1,0 +1,59 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Local databases and logs
+*.db
+*.sqlite
+*.sqlite3
+*.log
+
+# Generated pipeline outputs
+processed/
+
+# Private / client document inputs
+rawdata/
+data/review_cases/
+data/approved_dataset/
+data/few_shot/*
+!data/few_shot/few_shot_pack.json
+
+# Local model weights and experiments
+weights/
+models/
+
+# Local screenshots / attachments / temporary assets
+*.png
+*.jpg
+*.jpeg
+*.webp
+*.bmp
+!app/web/*.png
+!.gitkeep
+
+# Codex / local tooling state
+.codex/
+
+# Build artifacts
+dist/
+build/
