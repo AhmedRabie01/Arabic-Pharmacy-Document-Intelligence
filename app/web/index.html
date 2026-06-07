@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pharmacy OCR Workspace</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Noto+Kufi+Arabic:wght@400;600&display=swap"
+    rel="stylesheet"
+  >
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <div class="bg-shape bg-shape-a"></div>
+  <div class="bg-shape bg-shape-b"></div>
+
+  <main class="page">
+    <header class="hero">
+      <p class="eyebrow">Local-First OCR Pipeline</p>
+      <h1>Pharmacy Document Intelligence</h1>
+      <p class="subtitle">Upload PDF/image, run the full pipeline, and inspect structured output in one screen.</p>
+    </header>
+
+    <section class="layout">
+      <article class="card input-card reveal">
+        <h2>Run Pipeline</h2>
+        <form id="pipeline-form">
+          <label class="label" for="document-file">Document</label>
+          <div class="file-zone">
+            <input id="document-file" name="document-file" type="file" accept=".pdf,.png,.jpg,.jpeg" required>
+            <p id="file-name">No file selected</p>
+          </div>
+
+          <div class="field-grid">
+            <div>
+              <label class="label" for="provider">Document AI Provider</label>
+              <select id="provider" name="provider">
+                <option value="auto" selected>auto</option>
+                <option value="paddleocr">paddleocr</option>
+                <option value="chandra_ollama">chandra_ollama</option>
+                <option value="openai">openai</option>
+              </select>
+            </div>
+
+            <div class="toggle-row">
+              <input id="signature-enabled" type="checkbox" checked>
+              <label for="signature-enabled">Run Signature Detection</label>
+            </div>
+          </div>
+
+          <div>
+            <label class="label" for="signature-threshold">
+              Signature Threshold: <span id="threshold-value">0.10</span>
+            </label>
+            <input id="signature-threshold" type="range" min="0" max="1" step="0.01" value="0.10">
+          </div>
+
+          <button id="run-button" type="submit">Run Full Pipeline</button>
+        </form>
+      </article>
+
+      <article class="card result-card reveal">
+        <div class="result-head">
+          <h2>Results</h2>
+          <span id="status-chip" class="chip chip-idle">idle</span>
+        </div>
+
+        <div id="messages" class="messages"></div>
+        <div id="summary-grid" class="summary-grid"></div>
+        <div id="business-findings" class="business-findings"></div>
+        <div id="extraction-preview" class="extraction-preview"></div>
+
+        <details class="advanced-block">
+          <summary>Advanced Technical JSON (optional)</summary>
+          <div id="details-root" class="details-root"></div>
+        </details>
+      </article>
+    </section>
+  </main>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
