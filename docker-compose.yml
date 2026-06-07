@@ -1,0 +1,29 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: pharmacy-invoice-ocr-api
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    environment:
+      APP_ENV: docker
+      DEBUG: "false"
+      CHANDRA_BASE_URL: http://host.docker.internal:11434
+      OLLAMA_BASE_URL: http://host.docker.internal:11434
+      PADDLE_PDX_DISABLE_MODEL_SOURCE_CHECK: "True"
+    volumes:
+      - ./rawdata:/app/rawdata
+      - ./processed:/app/processed
+      - ./data:/app/data
+      - ./invoice_ocr.db:/app/invoice_ocr.db
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:8000/"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
