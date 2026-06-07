@@ -27,6 +27,14 @@ Typical outputs include:
 - supplier-level ordered amount tracking
 - recent processed documents and review status
 
+## Repository workflow
+
+This repository is maintained as a product-style service rather than a notebook project.
+
+- Setup and runtime instructions are in this README and [DOCKER.md](DOCKER.md)
+- testing and verification notes are in [TESTING.md](TESTING.md)
+- contribution expectations are in [CONTRIBUTING.md](CONTRIBUTING.md)
+
 ## Current scope
 
 Supported document families:

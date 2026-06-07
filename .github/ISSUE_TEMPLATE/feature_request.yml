@@ -1,0 +1,31 @@
+name: Feature request
+description: Suggest a product improvement or workflow enhancement.
+title: "[Feature]: "
+labels:
+  - enhancement
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What business or technical problem should this solve?
+      placeholder: Pharmacies need a clearer monthly supplier dashboard inside the main web UI.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: Describe the change you want at a product level.
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope and impact
+      description: Mention affected areas such as extraction, analytics, UI, or deployment.
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Optional. Note any fallback approach or tradeoff.

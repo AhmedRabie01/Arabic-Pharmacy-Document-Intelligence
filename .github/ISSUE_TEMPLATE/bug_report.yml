@@ -1,0 +1,68 @@
+name: Bug report
+description: Report a reproducible defect in extraction, validation, analytics, or UI behavior.
+title: "[Bug]: "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form for defects in the shipped product behavior. Remove or mask client-sensitive data before submitting.
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: Describe the defect clearly and briefly.
+      placeholder: The pipeline fails on page 2 when provider=openai and returns malformed monthly rows.
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - OCR / Provider
+        - Extraction
+        - Validation
+        - Database / Analytics
+        - Web UI
+        - Docker / Deployment
+        - Documentation
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Include document type, provider, and any relevant options.
+      placeholder: |
+        1. Start the API with uvicorn
+        2. Open /app
+        3. Upload a 2-page PDF with monthly + daily pages
+        4. Choose provider=openai
+        5. Run pipeline
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment details
+      description: Add OS, Python version, provider, and model if relevant.
+      placeholder: Windows 11, Python 3.11, provider=chandra_ollama, model=fredrezones55/chandra-ocr-2:patch
+  - type: textarea
+    id: artifacts
+    attributes:
+      label: Logs or artifacts
+      description: Paste sanitized logs, timing blocks, or JSON excerpts if available.
